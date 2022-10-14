@@ -5,9 +5,9 @@ from celery.schedules import crontab
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-SECRET_KEY = os.environ.get("SECRET_KEY")
+SECRET_KEY = 'django-insecure-mbxuff7^27y#=@(azb#f9f3w!b=(^omgeye!rfxc+=sj@ylam5'
 
-DEBUG = bool(int(os.environ.get("DEBUG", default=0)))
+DEBUG = 1
 
 ALLOWED_HOSTS = []
 
@@ -55,12 +55,12 @@ WSGI_APPLICATION = 'api_scraper.wsgi.application'
 
 DATABASES = {
     "default": {
-        "ENGINE": os.environ.get("SQL_ENGINE", "django.db.backends.sqlite3"),
-        "NAME": os.environ.get("SQL_DATABASE", os.path.join(BASE_DIR, "db.sqlite3")),
-        "USER": os.environ.get("SQL_USER", "user"),
-        "PASSWORD": os.environ.get("SQL_PASSWORD", "password"),
-        "HOST": os.environ.get("SQL_HOST", "localhost"),
-        "PORT": os.environ.get("SQL_PORT", "5432"),
+        "ENGINE": 'django.db.backends.postgresql',
+        "NAME": 'scraper_db',
+        "USER": 'scraper_user',
+        "PASSWORD": 'scraper_password',
+        "HOST": 'db',
+        "PORT": '5432',
     }
 }
 
