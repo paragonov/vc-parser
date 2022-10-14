@@ -1,15 +1,15 @@
 version: '3.7'
 services:
+
   web:
-    build: .
+    build: api_scraper/
     command: python manage.py runserver 0.0.0.0:8000
     ports:
       - 8000:8000
-    env_file:
-      - ../.env.dev
     depends_on:
       - db
       - redis
+
   db:
     image: postgres:12.0-alpine
     volumes:
@@ -18,20 +18,31 @@ services:
       - POSTGRES_USER=scraper_user
       - POSTGRES_PASSWORD=scraper_password
       - POSTGRES_DB=scraper_db
+
   redis:
     image: redis
+
   celery:
-    build: .
+    build: api_scraper/
     command: celery -A api_scraper worker -l info
-    env_file:
-      - ../.env.dev
     depends_on:
       - redis
+
   celery-beat:
-    build: .
+    build: api_scraper/
     command: celery -A api_scraper beat -l info
     depends_on:
       - redis
+
+  tg-bot:
+    build: tg_bot/
+    working_dir: /tg_bot
+    command: sh -c "python3 tg_bot.py"
+    depends_on:
+      - web
+    expose:
+      - 8000
+    network_mode: host
 
 volumes:
   postgres_data:
