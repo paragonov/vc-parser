@@ -9,9 +9,6 @@ class VideoCardAbs(models.Model):
 
     def __str__(self):
         return f'{self.name}'
-    
-    class Meta:
-        abstract = True
 
 
 class VcMV(VideoCardAbs):
