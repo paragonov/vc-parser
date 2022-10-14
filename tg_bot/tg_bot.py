@@ -5,7 +5,8 @@ import requests
 import telebot
 from telebot import types
 from telebot.formatting import hlink, hbold
-bot = telebot.TeleBot(token='TOKEN', parse_mode='HTML')
+
+bot = telebot.TeleBot(token='5499460518:AAFCtWIXEOu34Z2doRuefKOHy_raRr_YNzE', parse_mode='HTML')
 url = 'http://127.0.0.1:8000'
 
 
