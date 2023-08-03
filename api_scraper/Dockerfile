@@ -1,6 +1,6 @@
 FROM python:3.9.6-alpine
 
-WORKDIR /api_scraper/
+WORKDIR app/
 
 ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
@@ -13,9 +13,8 @@ COPY requirements.txt .
 RUN pip install -r requirements.txt
 
 COPY entrypoint.sh .
-RUN sed -i 's/\r$//g' /api_scraper/entrypoint.sh
-RUN chmod +x /api_scraper/entrypoint.sh
+RUN sed -i 's/\r$//g' entrypoint.sh
+RUN chmod +x entrypoint.sh
 
 COPY . .
 
-ENTRYPOINT ["/api_scraper/entrypoint.sh"]

@@ -5,4 +5,4 @@ from .models import VideoCardAbs
 class VideoCardsSerializer(serializers.ModelSerializer):
     class Meta:
         model = VideoCardAbs
-        fields = ['name', 'link', 'price', 'available']
+        fields = ["name", "link", "price", "available"]

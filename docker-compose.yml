@@ -2,8 +2,8 @@ version: '3.7'
 services:
 
   web:
-    build: api_scraper/
-    command: python manage.py runserver 0.0.0.0:8000
+    image: parser
+    command: python manage.py runserver 0.0.0.0:8000 & python manage.py makemigrations & python manage.py migrate
     ports:
       - 8000:8000
     depends_on:
@@ -11,7 +11,7 @@ services:
       - redis
 
   db:
-    image: postgres:12.0-alpine
+    image: postgres
     volumes:
       - postgres_data:/var/lib/postgresql/data/
     environment:
@@ -23,19 +23,19 @@ services:
     image: redis
 
   celery:
-    build: api_scraper/
+    image: parser
     command: celery -A api_scraper worker -l info
     depends_on:
       - redis
 
   celery-beat:
-    build: api_scraper/
+    image: parser
     command: celery -A api_scraper beat -l info
     depends_on:
       - redis
 
   tg-bot:
-    build: tg_bot/
+    image: tg_bot
     working_dir: /tg_bot
     command: sh -c "python3 tg_bot.py"
     depends_on:
